@@ -1,6 +1,6 @@
-import { hashingPassword, decodedPassword } from '../utils/bcrypt.js'
 import { createToken } from '../utils/token.js'
 import db from '../db/database.js'
+import bcrypt from 'bcrypt'
 
 export const userSignUpService = async (req, res) => {
     try {
@@ -11,8 +11,8 @@ export const userSignUpService = async (req, res) => {
             return res.status(400).send({ message: 'Email already in use', status: false });
         }
 
-        // const hashedPassword = await bcrypt.hash(password, 10);
-        const hashedPassword = await hashingPassword(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await hashingPassword(password, 10);
 
         // Insert new user
         const result = await db.query(
@@ -45,8 +45,7 @@ export const userLoginService = async (req, res) => {
         }
 
         // Compare password with hashed password
-        // const isMatch = await bcrypt.compare(password, user.password);
-        const isMatch = await decodedPassword(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).send({ message: 'Invalid credentials', status: false });
         }
@@ -62,6 +61,18 @@ export const userLoginService = async (req, res) => {
         });
     } catch (error) {
         console.log(error)
+        res.status(500).send({ error: 'Internal Server Error', status: false })
+    }
+}
+
+export const getAllUsersService = async (req, res) => {
+    try {
+        const result = await db.query(
+            'SELECT * FROM users'
+        )
+        return res.status(200).send({ data: result.rows, status: true });
+    }
+    catch (err) {
         res.status(500).send({ error: 'Internal Server Error', status: false })
     }
 }
