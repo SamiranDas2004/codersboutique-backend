@@ -1,8 +1,9 @@
 import express from 'express'
+import { userSignUp, userLogin } from '../controller/user.js';
 
 const router = express.Router();
 
-router.get('/', (_, res) => res.status(200).send({ message: 'server is working' }));
-// router.post('/login', userLogin);
+router.post('/login', userLogin);
+router.post('/signup', userSignUp);
 
 export default router;
