@@ -36,3 +36,4 @@ addPasswordColumn().catch(console.error);
 
 createUserTable().catch(console.error);
 createCandidateTable().catch(console.error);
+
