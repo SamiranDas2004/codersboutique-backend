@@ -1,16 +1,35 @@
+import jwt from 'jsonwebtoken';
+
 export const auth = (req, res, next) => {
     try {
-        const token = req.headers['authorization']?.split(' ')[1];
-
-        if (!token) return res.status(401).send({ message: 'Access Denied', status: false });
-
-        jwt.verify(token, JWT_SECRET, (err, user) => {
-            if (err) return res.status(403).send({ message: 'Invalid Token', status: false });
-            req.user = user; // Attach user info from token to request
-            next();
+        const token = req.headers.authorization.split(' ')[1];
+        if (token) {
+            jwt.verify(token, process.env.SECRETKEY, (err, decode) => {
+                if (err) {
+                    return res.status(403).send({ // 401
+                        statusCode: 403,
+                        msg: 'Invalid or expired token'
+                    });
+                }
+                if (!decode) {
+                    return res.status(403).send({
+                        statusCode: 403,
+                        msg: 'User not authorized'
+                    });
+                }
+                req.user = decode;
+                next();
+            });
+        } else {
+            return res.status(403).send({   // 401
+                statusCode: 403,
+                msg: 'Authorization token is required'
+            });
+        }
+    } catch (err) {
+        return res.status(403).send({
+            statusCode: 403,
+            msg: 'Unauthorized user!'
         });
     }
-    catch (err) {
-        res.status(500).send({ error: "UnAuthorized User", status: false });
-    }
-};
+}
