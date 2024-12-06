@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 const corsOptions = {
-    origin: 'https://codersboutiqueassignment.netlify.app',  // Allow your frontend domain
+    origin: 'https://codersboutiqueassignment.netlify.app/',  // Allow your frontend domain
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Specify allowed HTTP methods
   
    
