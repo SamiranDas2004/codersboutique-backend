@@ -10,7 +10,14 @@ import './db/tables.js'
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+const corsOptions = {
+    origin: 'https://codersboutiqueassignment.netlify.app',  // Allow your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Specify allowed HTTP methods
+  
+   
+};
+
+app.use(cors(corsOptions));
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/candidate', candidateRoute);
