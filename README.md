@@ -1,74 +1,71 @@
-# Candidate Management System
+Tech Assessment Platform
+Overview
+The Talent Management Platform is an intuitive web-based solution designed to handle candidate records seamlessly. It provides robust tools for creating, updating, and retrieving candidate data, including tracking their progress and current status.
 
-## Overview
-The Candidate Management System is a web application designed to manage candidates' information, including their status and details. The application allows users to add, update, and retrieve candidate information efficiently.
+Development Workflow
+The project followed a structured development process:
 
-## Approach
-To achieve the objectives, the following approach was taken:
-1. **Research and Planning**: Conducted initial research to understand the requirements for managing candidates and user authentication.
-2. **Design**: Created a design document outlining the architecture, including the database schema and API endpoints.
-3. **Implementation**: Developed the application using Node.js with Express for the backend, PostgreSQL for the database, and JWT for user authentication.
-4. **Testing**: Implemented unit tests and integration tests to ensure the functionality of the application.
-5. **Deployment**: Deployed the application using Vercel for hosting.
+Analysis and Planning: Conducted detailed research to identify requirements for candidate data handling and authentication mechanisms.
+Design: Created a detailed architecture blueprint, including database design and API specifications.
+Implementation: Built the backend using Node.js with Express, integrated PostgreSQL for data storage, and utilized JWT for authentication.
+Testing: Performed rigorous testing, including unit and integration tests, to ensure reliability.
+Deployment: Deployed the platform using Vercel for a smooth hosting experience.
+Tools and Technologies
+Language: JavaScript (Node.js)
+Framework: Express.js
+Database: PostgreSQL
+Version Control: Git
+Hosting: Vercel
+Utilities:
+dotenv for managing environment variables
+bcrypt for securing user passwords
+jsonwebtoken for token-based authentication
+Key Challenges and Solutions
+Database Setup: Initial setup of PostgreSQL and managing connections was tricky. This was resolved by implementing a connection pool for efficient resource utilization.
+Authentication System: Handling secure JWT-based authentication required precision. Middleware was developed for seamless token verification and user session management.
+Dynamic Query Handling: Creating flexible SQL queries for filtering candidates posed complexities. Parameterized queries were used to ensure security and functionality.
+Conclusion
+This project provided an opportunity to build a scalable system for managing user data and secure authentication. Future improvements could include role-based access, enhanced search features, and a user-friendly interface.
 
-## Tools Used
-- **Programming Languages**: JavaScript (Node.js)
-- **Frameworks**: Express
-- **Database**: PostgreSQL
-- **Version Control**: Git
-- **Deployment**: Vercel
-- **Other Tools**: dotenv for environment variable management, bcrypt for password hashing, and jsonwebtoken for token generation.
+Acknowledgments
+We extend our gratitude to the open-source community for their libraries and tools, which greatly facilitated the development process.
 
-## Challenges Faced
-During the development of this project, several challenges were encountered:
-- **Database Integration**: Setting up the PostgreSQL database and ensuring proper connection handling was initially challenging. This was addressed by using a connection pool and handling errors gracefully.
-- **Authentication**: Implementing JWT for user authentication required careful management of tokens and user sessions. This was resolved by creating middleware to handle token verification.
-- **Dynamic Query Building**: Building dynamic SQL queries for filtering candidates based on various parameters was complex. This was managed by constructing query strings based on user input while ensuring SQL injection protection.
+Getting Started
+Follow these instructions to set up the platform locally:
 
-## Conclusion
-This project has provided valuable insights into building a full-stack application with user authentication and database management. Future work could involve adding more features such as user roles, advanced filtering options, and a frontend interface.
+Clone the repository:
 
-## Acknowledgments
-Thank you to the open-source community for providing libraries and tools that made this project possible.
+bash
+Copy code
+git clone https://github.com/yousufali3/coders-boutique-be  
+cd coders-boutique-fe  
+Install the required packages:
 
-## Getting Started
-To run this project locally, follow these steps:
+bash
+Copy code
+npm install  
+Configure the environment variables:
+Create a .env file in the root directory with these details:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yousufali3/coders-boutique-be
-   cd coders-boutique-fe
-   ```
+plaintext
+Copy code
+POSTGRES_URL=<your_postgres_connection_string>  
+SECRETKEY=<your_jwt_secret_key>  
+PORT=8000  
+Start the application:
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+bash
+Copy code
+npm run dev  
+Access the API:
+The application will be available at: https://coders-boutique-be.vercel.app/.
 
-3. Create a `.env` file in the root directory and add the following variables:
-   ```
-   POSTGRES_URL=<your_postgres_connection_string>
-   SECRETKEY=<your_jwt_secret_key>
-   PORT=8000
-   ```
-
-4. Run the application:
-   ```bash
-   npm run dev
-   ```
-
-5. Access the API at `https://coders-boutique-be.vercel.app/`.
-
-## API Endpoints
-### User Endpoints
-- **POST /api/v1/user/signup**: Register a new user.
-- **POST /api/v1/user/login**: Log in an existing user.
-- **GET /api/v1/user/users**: Retrieve all users.
-
-### Candidate Endpoints
-- **GET /api/v1/candidate**: Retrieve all candidates.
-- **POST /api/v1/candidate**: Add a new candidate.
-- **PATCH /api/v1/candidate/:id**: Update the status of a candidate.
-
-## License
-This project is licensed under the MIT License.
+API Endpoints
+User Management
+POST /api/v1/user/signup: Register a new user.
+POST /api/v1/user/login: Authenticate a user.
+GET /api/v1/user/users: List all registered users.
+Candidate Management
+GET /api/v1/candidate: Fetch all candidate records.
+POST /api/v1/candidate: Add a new candidate profile.
+PATCH /api/v1/candidate/:id: Update a candidate's status.
